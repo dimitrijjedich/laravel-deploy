@@ -33,6 +33,12 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href='/weight'
+                                    active={route().current('weight.index')}
+                                >
+                                    Weight
+                                </NavLink>
                             </div>
                         </div>
 
