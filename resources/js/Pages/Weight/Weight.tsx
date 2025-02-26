@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import React from 'react';
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface CustomPageProps extends PageProps {
     weights: Weight[];
@@ -34,18 +35,31 @@ export default function Weight() {
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             {weights.length > 0 ? (
                                 <div>
-                                    <h2 className="text-xl font-semibold mb-4">Weight History</h2>
-                                    <ul className="space-y-2">
-                                        {weights.map((weight) => (
-                                            <li
-                                                key={weight.id}
-                                                className="flex justify-between p-4 border rounded"
+                                    <div style={{width: '100%', height: 400}}>
+                                        <ResponsiveContainer>
+                                            <LineChart
+                                                data={weights}
+                                                margin={{
+                                                    top: 5,
+                                                    right: 30,
+                                                    left: 20,
+                                                    bottom: 5,
+                                                }}
                                             >
-                                                <span>{weight.weight} kg</span>
-                                                <span>{new Date(weight.measured_at).toLocaleString()}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                                <CartesianGrid strokeDasharray="3 3"/>
+                                                <XAxis dataKey="meassured_at"/>
+                                                <YAxis/>
+                                                <Tooltip/>
+                                                <Legend/>
+                                                <Line
+                                                    type="monotone"
+                                                    dataKey="weight"
+                                                    stroke="#8884d8"
+                                                    activeDot={{r: 8}}
+                                                />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
                                 </div>
                             ) : (
                                 <p className="text-center text-gray-500 dark:text-gray-400">
