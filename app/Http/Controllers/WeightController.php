@@ -11,7 +11,7 @@ class WeightController extends Controller
 {
     public function index()
     {
-        $weights = Auth::user()->weights()->orderBy('measured_at', 'desc')->get();
+        $weights = Auth::user()->weights()->orderBy('measured_at', 'asc')->get();
         return Inertia::render('Weight/Weight', ['weights' => $weights]);
     }
 
